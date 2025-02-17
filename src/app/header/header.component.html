@@ -1,21 +1,47 @@
 <header>
   <!-- Navigation bar -->
   <nav
-    class="relative flex w-full items-center justify-between bg-gray-800 py-2 px-5 shadow-lg lg:flex-wrap lg:justify-start lg:py-4"
+    class="relative flex w-full items-center justify-between bg-gray-800 py-2 px-5 shadow-lg lg:flex-wrap lg:justify-between lg:py-4"
     data-twe-navbar-ref>
-    <div class="flex w-full flex-wrap items-center justify-between px-3">
+    <div class="flex w-full justify-between items-center">
       <!-- Logo -->
-      <div class="text-2xl text-yellow-400">
+      <div class="text-2xl text-yellow-400 flex-shrink-0">
         <a [routerLink]="['/']">X-FLY</a>
       </div>
+
+      <!-- Centered Navigation links -->
+      <div class="flex-grow flex justify-center space-x-5">
+        <ul class="flex space-x-5 justify-center items-center">
+          <li class="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
+            <a
+              class="block text-gray-300 transition duration-200 hover:text-white hover:ease-in-out focus:text-white active:text-white motion-reduce:transition-none"
+              [routerLink]="['/home1']"
+              data-twe-nav-link-ref
+              data-twe-ripple-init
+              data-twe-ripple-color="light">Reservation</a>
+          </li>
+          <li class="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
+            <a
+              class="block text-gray-300 transition duration-200 hover:text-white hover:ease-in-out focus:text-white active:text-white motion-reduce:transition-none"
+              href="#meteo"
+              data-twe-nav-link-ref
+              data-twe-ripple-init
+              data-twe-ripple-color="light">Meteo</a>
+          </li>
+          <li class="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
+            <a
+              class="block text-gray-300 transition duration-200 hover:text-white hover:ease-in-out focus:text-white active:text-white motion-reduce:transition-none"
+              href="#offers"
+              data-twe-nav-link-ref
+              data-twe-ripple-init
+              data-twe-ripple-color="light">Offers</a>
+          </li>
+        </ul>
+      </div>
+
       <!-- Login links -->
-      <div
-        class="flex flex-row text-lg"
-        id="navbarSupportedContentY"
-        data-twe-collapse-item>
-        <ul
-          class="me-auto flex flex-col lg:flex-row space-x-5 justify-items-center items-center"
-          data-twe-navbar-nav-ref>
+      <div class="flex flex-row text-lg" id="navbarSupportedContentY" data-twe-collapse-item>
+        <ul class="flex space-x-5 justify-items-center items-center">
           @if (!(isLoggedIn$ | async)) {
             <li class="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
               <a
