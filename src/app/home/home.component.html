@@ -1,0 +1,62 @@
+<div class="h-full container mx-auto flex justify-center items-start">
+  <div class="px-40 py-20 bg-gray-800 rounded-2xl shadow-lg">
+    <form
+      [formGroup]="searchForm"
+      (ngSubmit)="onSubmit()"
+      class="flex flex-row space-x-7 font-thin text-xl"
+    >
+      <div class="flex flex-col">
+        <label class="text-white" for="startlocation">Start location</label>
+        <input
+          class="px-10 py-5 rounded-xl bg-gray-100 text-gray-800"
+          type="text"
+          id="startlocation"
+          name="startlocation"
+          placeholder="Start location"
+          formControlName="startLocation"
+        />
+      </div>
+      <div class="flex flex-col">
+        <label class="text-white" for="endlocation">End location</label>
+        <input
+          class="px-10 py-5 rounded-xl bg-gray-100 text-gray-800"
+          type="text"
+          id="endlocation"
+          name="endlocation"
+          placeholder="End location"
+          formControlName="endLocation"
+        />
+      </div>
+      <div class="flex flex-col">
+        <label class="text-white" for="startdate">Start date</label>
+        <input
+          class="px-10 py-5 rounded-xl bg-gray-100 text-gray-800"
+          type="date"
+          id="startdate"
+          name="startdate"
+          formControlName="startDate"
+          value="{{ currentDate }}"
+        />
+      </div>
+      <div class="flex flex-col">
+        <label class="text-white" for="enddate">End date</label>
+        <input
+          class="px-10 py-5 rounded-xl bg-gray-100 text-gray-800"
+          type="date"
+          id="enddate"
+          name="enddate"
+          formControlName="endDate"
+        />
+      </div>
+      
+      <div class="flex flex-col">
+        <input
+          type="submit"
+          value="⌕"
+          class="bg-yellow-400 text-gray-800 px-10 py-10 rounded-xl text-center"
+        />
+      </div>
+    </form>
+  </div>
+</div>
+
