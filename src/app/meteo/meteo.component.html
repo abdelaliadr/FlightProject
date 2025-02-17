@@ -1,0 +1,13 @@
+<div class="meteo-container">
+    <h2>Weather Forecast</h2>
+    <input type="text" [(ngModel)]="city" placeholder="Enter city name">
+    <button (click)="fetchWeather()">Get Weather</button>
+
+    <div *ngIf="weather" class="weather-info">
+        <h3>{{ city }}</h3>
+        <p><strong>Temperature:</strong> {{ weather.temperature }}°C</p>
+        <p><strong>Condition:</strong> {{ weather.description }}</p>
+        <p><strong>Time:</strong> {{ weather.date | date:'medium' }}</p>
+        <img *ngIf="weatherIcon" [src]="weatherIcon" alt="Weather icon">  <!-- ✅ Fixed -->
+    </div>
+</div>
