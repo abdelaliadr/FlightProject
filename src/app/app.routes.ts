@@ -9,6 +9,7 @@ import { SignupComponent } from './signup/signup.component';
 import { BookingComponent } from './booking/booking.component';
 import { Home1Component } from './home1/home1.component';
 import { MeteoComponent } from './meteo/meteo.component';
+import { ReservationComponent } from './reservation/reservation.component';
 
 export const routes: Routes = [
   {
@@ -42,7 +43,9 @@ export const routes: Routes = [
   {
     path: 'profile',
     component: BookingComponent,
-  }
+  },
+  { path: 'reserve/:flightId',
+    component: ReservationComponent },
 ];
 
 @NgModule({

@@ -13,8 +13,9 @@ export class FlightService {
 
   constructor(private http: HttpClient) {}
 
-  filterFlights(departureCity: string, arrivalCity: string, departureTime: string, arrivalTime: string): Observable<Flight[]> {
+  filterFlights( flightId:string, departureCity: string, arrivalCity: string, departureTime: string, arrivalTime: string): Observable<Flight[]> {
     const params = {
+      flightId,
       departureCity,
       arrivalCity,
       departureTime,

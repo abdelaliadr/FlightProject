@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FlightService } from '../service/flight.service';
 
 import { Flight } from '../model/flight';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -18,8 +19,13 @@ export class HomeComponent {
   flights: Flight[] = [];
   responseMessage: string = '';
 
-  constructor(private fb: FormBuilder, private flightService: FlightService) {
+  constructor(
+    private fb: FormBuilder,
+    private flightService: FlightService,
+    private router: Router  // Inject Router service
+  ) {
     this.searchForm = this.fb.group({
+      flightId: [''],
       startLocation: [''],
       endLocation: [''],
       startDate: [''],
@@ -27,9 +33,15 @@ export class HomeComponent {
     });
   }
 
+  // Function to handle flight booking navigation
+  navigateToReservation(flightId: string) {
+    this.router.navigate(['/reserve', flightId]);  // Navigate to the reservation page with flightId
+  }
+
   onSubmit() {
     const formValues = this.searchForm.value;
     this.flightService.filterFlights(
+      formValues.flightId,
       formValues.startLocation, 
       formValues.endLocation, 
       formValues.startDate, 
@@ -50,5 +62,4 @@ export class HomeComponent {
       }
     );
   }
-  
 }
