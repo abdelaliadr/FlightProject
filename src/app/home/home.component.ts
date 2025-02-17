@@ -27,24 +27,28 @@ export class HomeComponent {
     });
   }
 
-  onSubmit(): void {
-    const { startLocation, endLocation, startDate, endDate } = this.searchForm.value;
-
-    if (!startLocation || !endLocation || !startDate || !endDate) {
-      this.responseMessage = 'Please fill in all fields';
-      return;
-    }
-
-    this.flightService.filterFlights(startLocation, endLocation, startDate, endDate)
-      .subscribe({
-        next: (response: Flight[]) => {
-          this.flights = response;
-          this.responseMessage = this.flights.length ? 'Flights found:' : 'No flights available.';
-        },
-        error: (error) => {
-          this.responseMessage = 'Error retrieving flights.';
-          console.error('Error:', error);
+  onSubmit() {
+    const formValues = this.searchForm.value;
+    this.flightService.filterFlights(
+      formValues.startLocation, 
+      formValues.endLocation, 
+      formValues.startDate, 
+      formValues.endDate
+    ).subscribe(
+      (data) => {
+        this.flights = data;
+        console.log("Received flights:", this.flights); // Debugging the data
+        if (this.flights.length === 0) {
+          this.responseMessage = "No flights available";
+        } else {
+          this.responseMessage = "";
         }
-      });
+      },
+      (error) => {
+        console.error("Error retrieving flights:", error);
+        this.responseMessage = "Error retrieving flights";
+      }
+    );
   }
+  
 }

@@ -63,6 +63,13 @@
         <li *ngFor="let flight of flights">
           ✈ {{ flight.departureCity }} → {{ flight.arrivalCity }} 
           ({{ flight.departureTime | date:'medium' }} - {{ flight.arrivalTime | date:'medium' }})
+
+          <strong>Airline:</strong> {{ flight.airline }}<br>
+          <strong>Price:</strong> ${{ flight.price }}<br>
+         
+
+          
+
         </li>
       </ul>
     </div>

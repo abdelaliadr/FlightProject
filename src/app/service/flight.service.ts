@@ -9,7 +9,7 @@ import { FlightRequest } from '../dto/flightRequest';
 })
 export class FlightService {
 
-  private baseUrl = 'http://your-backend-url'; // Replace with your actual backend URL
+  private baseUrl = 'http://localhost:8081/api/flights'; // Replace with your actual backend URL
 
   constructor(private http: HttpClient) {}
 
