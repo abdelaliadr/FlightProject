@@ -1,8 +1,9 @@
 import { CommonModule, formatDate } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FlightService } from '../service/flight.service';
 import { Router } from '@angular/router';
+import { Flight } from '../model/flight';
 
 @Component({
   selector: 'app-home',
@@ -13,23 +14,34 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent {
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private fligtService: FlightService,
-    private router: Router
-  ) {}
+  searchForm: FormGroup;
+  flights: Flight[] = [];
+  responseMessage: string = '';
 
-  currentDate = formatDate(new Date, 'yyyy-MM-dd', 'en');
+  constructor(private fb: FormBuilder, private flightService: FlightService) {
+    this.searchForm = this.fb.group({
+      startLocation: [''],
+      endLocation: [''],
+      startDate: [''],
+      endDate: ['']
+    });
+  }
 
-  searchForm = this.formBuilder.group({
-    startDate: this.currentDate,
-    endDate: this.currentDate,
-    startLocation: '',
-    endLocation: '',
-    filterUnavailable: false
-  });
+  ngOnInit(): void {}
 
   onSubmit(): void {
-    this.router.navigate(['/search'], {queryParams: this.searchForm.value});
+    const { startLocation, endLocation, startDate, endDate } = this.searchForm.value;
+
+    this.flightService.filterFlights(startLocation, endLocation, startDate, endDate)
+      .subscribe({
+        next: (response: Flight[]) => {
+          this.flights = response;
+          this.responseMessage = 'Flights retrieved successfully.';
+        },
+        error: (error) => {
+          this.responseMessage = 'Error retrieving flights.';
+          console.error('Error:', error);
+        }
+      });
   }
 }

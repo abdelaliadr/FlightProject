@@ -1,10 +1,8 @@
 export interface Flight {
-    id: number;
-    name: string;
-    price: number;
-    startDate: Date;
-    endDate?: Date;
-    startLocation: string;
-    endLocation?: string;
-    isAvailable: boolean;
-}
+    id: number; // Adjust according to your backend structure
+    departureCity: string;
+    arrivalCity: string;
+    departureTime: string;
+    arrivalTime: string;
+    details: string; // Adjust according to your requirements
+  }

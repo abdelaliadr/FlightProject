@@ -9,28 +9,17 @@ import { FlightRequest } from '../dto/flightRequest';
 })
 export class FlightService {
 
-  private apiUrl = "http://localhost:8080/v1/api";
+  private baseUrl = 'http://your-backend-url'; // Replace with your actual backend URL
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  getFlightsByStartLocation(startLocation: string, isFiltered: boolean = false) : Observable<Flight[]> {
-    if (startLocation === undefined) {
-      return of([]);
-    }
-    return this.http.get<Flight[]>(`${this.apiUrl}/flights?startLocation=${startLocation}&filterUnavailable=${isFiltered}`);
-  }
+  filterFlights(departureCity: string, arrivalCity: string, departureTime: string, arrivalTime: string): Observable<Flight[]> {
+    const params = {
+      departureCity,
+      arrivalCity,
+      departureTime,
+      arrivalTime
+    };
 
-  getFlightsByEndLocation(endLocation: string, isFiltered: boolean = false) : Observable<Flight[]> {
-    if (endLocation === undefined) {
-      return of([]);
-    }
-    return this.http.get<Flight[]>(`${this.apiUrl}/flights?endLocation=${endLocation}&filterUnavailable=${isFiltered}`);
-  }
-
-  getFlightsByTimeframe(startDate: Date, endDate: Date, isFiltered: boolean = false) : Observable<Flight[]> {
-    if (startDate === undefined || endDate === undefined) {
-      return of([]);
-    }
-    return this.http.get<Flight[]>(`${this.apiUrl}/flights?startDate=${startDate}&endDate=${endDate}&filterUnavailable=${isFiltered}`);
-  }
-}
+    return this.http.get<Flight[]>(`${this.baseUrl}/Filter`, { params });
+}}
