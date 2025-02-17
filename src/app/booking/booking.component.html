@@ -14,19 +14,18 @@
     } @else { @for (flight of customerBookings; track $index) {
     <div class="p-5 bg-stone-200 rounded-xl grid grid-cols-2 gap-3">
       <div class="flex flex-col">
-        <p class="font-bold col-span-2">{{ flight.name }}</p>
-        <p class="font-semibold">{{ flight.startLocation }}</p>
-        <p>{{ flight.startDate | date : "medium" }}</p>
-        <p class="font-semibold">{{ flight.endLocation }}</p>
-        <p>{{ flight.endDate | date : "medium" }}</p>
+        <p class="font-bold col-span-2">{{ flight.airline }}</p>
+        <p class="font-semibold">{{ flight.departureCity }}</p>
+        <p>{{ flight.departureTime | date : "medium" }}</p>
+        <p class="font-semibold">{{ flight.arrivalCity }}</p>
+        <p>{{ flight.arrivalTime | date : "medium" }}</p>
       </div>
       <div class="flex flex-col justify-between items-center">
         <p class="text-lg font-medium">{{ flight.price | currency }}</p>
         <a
           class="bg-red-500 rounded-xl p-5 text-white font-light hover:bg-red-400"
-          (click)="removeBooking(flight.id)"
-          >Delete</a
         >
+        </a>
       </div>
     </div>
     } }
