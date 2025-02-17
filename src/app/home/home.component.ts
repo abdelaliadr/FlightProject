@@ -1,8 +1,8 @@
-import { CommonModule, formatDate } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FlightService } from '../service/flight.service';
-import { Router } from '@angular/router';
+
 import { Flight } from '../model/flight';
 
 @Component({
@@ -13,7 +13,7 @@ import { Flight } from '../model/flight';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-
+  
   searchForm: FormGroup;
   flights: Flight[] = [];
   responseMessage: string = '';
@@ -27,16 +27,19 @@ export class HomeComponent {
     });
   }
 
-  ngOnInit(): void {}
-
   onSubmit(): void {
     const { startLocation, endLocation, startDate, endDate } = this.searchForm.value;
+
+    if (!startLocation || !endLocation || !startDate || !endDate) {
+      this.responseMessage = 'Please fill in all fields';
+      return;
+    }
 
     this.flightService.filterFlights(startLocation, endLocation, startDate, endDate)
       .subscribe({
         next: (response: Flight[]) => {
           this.flights = response;
-          this.responseMessage = 'Flights retrieved successfully.';
+          this.responseMessage = this.flights.length ? 'Flights found:' : 'No flights available.';
         },
         error: (error) => {
           this.responseMessage = 'Error retrieving flights.';
