@@ -10,6 +10,7 @@ import { BookingComponent } from './booking/booking.component';
 import { Home1Component } from './home1/home1.component';
 import { MeteoComponent } from './meteo/meteo.component';
 import { ReservationComponent } from './reservation/reservation.component';
+import { ExternalRedirectComponent } from './external-redirect/external-redirect.component';
 
 export const routes: Routes = [
   {
@@ -45,7 +46,14 @@ export const routes: Routes = [
     component: BookingComponent,
   },
   { path: 'reserve/:flightId',
-    component: ReservationComponent },
+    component: ReservationComponent 
+  },
+  { path: 'diseases', 
+    redirectTo: 'externalRedirect', pathMatch: 'full' 
+  },
+  { path: 'externalRedirect', 
+    component: ExternalRedirectComponent 
+  },
 ];
 
 @NgModule({
