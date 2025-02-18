@@ -1,87 +1,77 @@
 <header>
-  <!-- Navigation bar -->
-  <nav
-    class="relative flex w-full items-center justify-between bg-gray-800 py-2 px-5 shadow-lg lg:flex-wrap lg:justify-between lg:py-4"
-    data-twe-navbar-ref>
-    <div class="flex w-full justify-between items-center">
-      <!-- Logo -->
-      <div class="text-2xl text-yellow-400 flex-shrink-0">
-        <a [routerLink]="['/']">X-FLY</a>
-      </div>
+  <nav class="relative w-full bg-gray-900 shadow-lg ">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex h-16 items-center justify-between">
+        <!-- Logo -->
+        <div class="flex-shrink-0">
+          <a [routerLink]="['/']" class="text-2xl font-bold text-white hover:text-gray-400 transition">
+            X-FLY
+          </a>
+        </div>
 
-      <!-- Centered Navigation links -->
-      <div class="flex-grow flex justify-center space-x-5">
-        <ul class="flex space-x-5 justify-center items-center">
-          <li class="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
-            <a
-              class="block text-gray-300 transition duration-200 hover:text-white hover:ease-in-out focus:text-white active:text-white motion-reduce:transition-none"
-              [routerLink]="['/home1']"
-              data-twe-nav-link-ref
-              data-twe-ripple-init
-              data-twe-ripple-color="light">Reservation</a>
-          </li>
-          <li class="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
-            <a
-              class="block text-gray-300 transition duration-200 hover:text-white hover:ease-in-out focus:text-white active:text-white motion-reduce:transition-none"
-              [routerLink]="['/meteo']"
-              data-twe-nav-link-ref
-              data-twe-ripple-init
-              data-twe-ripple-color="light">Meteo</a>
-          </li>
-          <li class="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
-            <a
-              class="block text-gray-300 transition duration-200 hover:text-white hover:ease-in-out focus:text-white active:text-white motion-reduce:transition-none"
-              href="#offers"
-              data-twe-nav-link-ref
-              data-twe-ripple-init
-              data-twe-ripple-color="light">Offers</a>
-          </li>
-        </ul>
-      </div>
+        <!-- Center Navigation -->
+        <div class="flex justify-center">
+          <ul class="flex space-x-8">
+            <li>
+              <a
+                [routerLink]="['/home1']"
+                class="text-white font-medium hover:text-gray-400 px-3 py-2 rounded-md transition duration-200"
+                data-twe-nav-link-ref>
+                Reservation
+              </a>
+            </li>
+            <li>
+              <a
+                [routerLink]="['/meteo']"
+                class="text-white font-medium hover:text-gray-400 px-3 py-2 rounded-md transition duration-200"
+                data-twe-nav-link-ref>
+                Meteo
+              </a>
+            </li>
+            <li>
+              <a
+                href="#offers"
+                class="text-white font-medium hover:text-gray-400 px-3 py-2 rounded-md transition duration-200"
+                data-twe-nav-link-ref>
+                Offers
+              </a>
+            </li>
+          </ul>
+        </div>
 
-      <!-- Login links -->
-      <div class="flex flex-row text-lg" id="navbarSupportedContentY" data-twe-collapse-item>
-        <ul class="flex space-x-5 justify-items-center items-center">
+        <!-- Auth Section -->
+        <div class="flex items-center space-x-4">
           @if (!(isLoggedIn$ | async)) {
-            <li class="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
+            <a
+              [routerLink]="['/login']"
+              class="text-white font-medium hover:text-gray-400 px-3 py-2 rounded-md transition duration-200"
+              data-twe-nav-link-ref>
+              Log in
+            </a>
+            <a
+              [routerLink]="['/signup']"
+              class="bg-white text-gray-900 font-medium px-4 py-2 rounded-md hover:bg-gray-400 transition duration-200"
+              data-twe-nav-link-ref>
+              Sign up
+            </a>
+          } @else {
+            <div class="flex items-center space-x-4">
+              <span class="text-white font-medium">Hi, {{ user }}</span>
               <a
-                class="block text-gray-300 transition duration-200 hover:text-white hover:ease-in-out focus:text-white active:text-white motion-reduce:transition-none"
-                [routerLink]="['/login']"
-                data-twe-nav-link-ref
-                data-twe-ripple-init
-                data-twe-ripple-color="light">Log in</a>
-            </li>
-            <li class="mb-4 lg:mb-0 px-3 py-2 rounded bg-yellow-400 transition duration-200 hover:bg-yellow-300 hover:ease-in-out focus:bg-yellow-300 active:bg-yellow-300 pointer-events-none" data-twe-nav-item-ref>
-              <a
-                class="block text-gray-800 motion-reduce:transition-none pointer-events-auto"
-                [routerLink]="['/signup']"
-                data-twe-nav-link-ref
-                data-twe-ripple-init
-                data-twe-ripple-color="light">Sign up</a>
-            </li>
-          }
-          @else {
-            <li class="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
-              <span class="block text-gray-300">Hi, {{ user }}</span>
-            </li>
-            <li class="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
-              <a
-                class="block text-gray-300 transition duration-200 hover:text-white hover:ease-in-out focus:text-white active:text-white motion-reduce:transition-none"
                 [routerLink]="['/profile']"
-                data-twe-nav-link-ref
-                data-twe-ripple-init
-                data-twe-ripple-color="light">Profile</a>
-            </li>
-            <li class="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
+                class="text-white font-medium hover:text-gray-400 px-3 py-2 rounded-md transition duration-200"
+                data-twe-nav-link-ref>
+                Profile
+              </a>
               <a
-                class="block text-gray-300 transition duration-200 hover:text-white hover:ease-in-out focus:text-white active:text-white motion-reduce:transition-none"
                 [routerLink]="['/logout']"
-                data-twe-nav-link-ref
-                data-twe-ripple-init
-                data-twe-ripple-color="light">Log out</a>
-            </li>
+                class="text-white font-medium hover:text-gray-400 px-3 py-2 rounded-md transition duration-200"
+                data-twe-nav-link-ref>
+                Log out
+              </a>
+            </div>
           }
-        </ul>
+        </div>
       </div>
     </div>
   </nav>

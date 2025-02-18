@@ -1,80 +1,80 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ReservationService } from '../service/reservation.service';
 import { Reservation } from '../model/Reservation';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-reservation',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './reservation.component.html',
   styleUrls: ['./reservation.component.css']
 })
 export class ReservationComponent implements OnInit {
   
-  flightId!: number;
   reservationForm: FormGroup;
+  flightId!: string;
   responseMessage: string = '';
-  loading: boolean = false; // To show loading state
-  router: any;
 
   constructor(
-    private route: ActivatedRoute, 
-    private fb: FormBuilder, 
-    private reservationService: ReservationService
+    private fb: FormBuilder,
+    private reservationService: ReservationService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.reservationForm = this.fb.group({
       passengerName: ['', Validators.required],
       passengerEmail: ['', [Validators.required, Validators.email]],
-      passengerCount: [1, [Validators.required, Validators.min(1)]],
-      seatCount: [1, [Validators.required, Validators.min(1)]]
+      passwordEmail: ['', [Validators.required]],
+      seatCount: [1, [Validators.required, Validators.min(1)]],
+      passengerCount: [1, [Validators.required, Validators.min(1)]]
     });
   }
-
 
   ngOnInit(): void {
-    // Get flight ID from URL and handle if it's not present
-    const flightIdParam = this.route.snapshot.paramMap.get('flightId');
-    if (flightIdParam) {
-      this.flightId = Number(flightIdParam);
-    } else {
-      this.responseMessage = "No Flight ID found in URL!";
+    this.flightId = this.route.snapshot.paramMap.get('flightId') || '';
+  }
+
+  onSubmit(): void {
+    if (this.reservationForm.valid) {
+      const reservationData = {
+        flight: {
+          flightId: this.flightId
+        },
+        passengerName: this.reservationForm.value.passengerName,
+        passengerEmail: this.reservationForm.value.passengerEmail,
+        passwordEmail: this.reservationForm.value.passwordEmail,
+        seatCount: this.reservationForm.value.seatCount,
+        passengerCount: this.reservationForm.value.passengerCount
+      };
+
+      // Step 1: Create the reservation
+      this.reservationService.createReservation(reservationData).subscribe({
+        next: (reservation) => {
+          // Step 2: Send the ticket
+          this.reservationService.sendTicket(reservation).subscribe({
+            next: (response) => {
+                this.responseMessage = response.message; // Access the message from the JSON response
+                this.router.navigate(['/payment', reservation.id]); // Navigate to payment with reservation ID
+            },
+            error: (err) => {
+                console.error("Error sending ticket:", err);
+                this.responseMessage = "Reservation created, but there was an error sending the ticket.";
+            }
+        });
+        },
+        error: (err) => {
+          console.error("Error creating reservation:", err);
+          this.responseMessage = err.error || "Error creating reservation. Please try again.";
+        }
+      });
     }
   }
 
-  onSubmit() {
-    if (!this.flightId) {
-      this.responseMessage = "Flight ID is missing!";
-      return;
-    }
-  
-    if (this.reservationForm.invalid) {
-      this.responseMessage = "Please fill in all required fields correctly.";
-      return;
-    }
-  
-    const reservation: Reservation = {
-      flightId: this.flightId,
-      passengerName: this.reservationForm.value.passengerName,
-      passengerEmail: this.reservationForm.value.passengerEmail,
-      passengerCount: this.reservationForm.value.passengerCount,
-      seatCount: this.reservationForm.value.seatCount
-    };
-  
-    this.loading = true; // Start loading state
-  
-    this.reservationService.reserveFlight(reservation).subscribe({
-      next: (response:any) => {
-        this.loading = false; // End loading state
-        this.responseMessage = `Reservation successful! Total Price: $${response.totalPrice}`;
-        this.reservationForm.reset(); // Reset form on success
-      },
-      error: (error: any) => {
-        this.loading = false; // End loading state
-        console.error("Error during reservation:", error);
-        this.responseMessage = `Reservation failed: ${error.message || 'Please try again later.'}`;
-      }
-    });
+  cancelReservation(): void {
+    this.router.navigate(['/']); // Navigate back to the home page
   }
-  
 }
 

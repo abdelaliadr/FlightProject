@@ -10,6 +10,8 @@ import { BookingComponent } from './booking/booking.component';
 import { Home1Component } from './home1/home1.component';
 import { MeteoComponent } from './meteo/meteo.component';
 import { ReservationComponent } from './reservation/reservation.component';
+import { PaymentComponent } from './payment/payment.component';
+import { RecommandationComponent } from './recommandation/recommandation.component';
 
 export const routes: Routes = [
   {
@@ -46,6 +48,10 @@ export const routes: Routes = [
   },
   { path: 'reserve/:flightId',
     component: ReservationComponent },
+    { path: 'payment/:reservationId',
+      component: PaymentComponent },
+      { path: 'recommend',
+        component: RecommandationComponent },
 ];
 
 @NgModule({

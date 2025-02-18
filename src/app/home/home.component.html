@@ -1,85 +1,129 @@
-<div class="h-full container mx-auto flex justify-center items-start">
-  <div class="px-40 py-20 bg-gray-800 rounded-2xl shadow-lg">
-    <form
-      [formGroup]="searchForm"
-      (ngSubmit)="onSubmit()"
-      class="flex flex-row space-x-7 font-thin text-xl"
-    >
-      <div class="flex flex-col">
-        <label class="text-white" for="startlocation">Start location</label>
-        <input
-          class="px-10 py-5 rounded-xl bg-gray-100 text-gray-800"
-          type="text"
-          id="startlocation"
-          placeholder="Start location"
-          formControlName="startLocation"
-        />
-      </div>
-      <div class="flex flex-col">
-        <label class="text-white" for="endlocation">End location</label>
-        <input
-          class="px-10 py-5 rounded-xl bg-gray-100 text-gray-800"
-          type="text"
-          id="endlocation"
-          placeholder="End location"
-          formControlName="endLocation"
-        />
-      </div>
-      <div class="flex flex-col">
-        <label class="text-white" for="startdate">Start date</label>
-        <input
-          class="px-10 py-5 rounded-xl bg-gray-100 text-gray-800"
-          type="date"
-          id="startdate"
-          formControlName="startDate"
-        />
-      </div>
-      <div class="flex flex-col">
-        <label class="text-white" for="enddate">End date</label>
-        <input
-          class="px-10 py-5 rounded-xl bg-gray-100 text-gray-800"
-          type="date"
-          id="enddate"
-          formControlName="endDate"
-        />
-      </div>
-      
-      <div class="flex flex-col">
-        <input
-          type="submit"
-          value="Search Flights"
-          class="bg-yellow-400 text-gray-800 px-10 py-10 rounded-xl text-center"
-        />
-      </div>
-    </form>
+<div class="min-h-screen bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto">
+    <!-- Search Form Container -->
+    <div class="bg-white rounded-3xl shadow-2xl p-8 lg:p-12">
+      <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="space-y-8">
+        <!-- Form Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Start Location -->
+          <div class="space-y-2">
+            <label class="text-black font-bold text-sm" for="startlocation">Start Location</label>
+            <input
+              class="w-full px-4 py-3 rounded-xl bg-gray-100 text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-yellow-400 focus:outline-none transition border-gray-200"
+              type="text"
+              id="startlocation"
+              placeholder="Start location"
+              formControlName="startLocation"
+            />
+          </div>
+          
+          <!-- End Location -->
+          <div class="space-y-2">
+            <label class="text-black font-bold text-sm" for="endlocation">End Location</label>
+            <input
+              class="w-full px-4 py-3 rounded-xl bg-gray-100 text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-yellow-400 focus:outline-none transition border-gray-200"
+              type="text"
+              id="endlocation"
+              placeholder="End location"
+              formControlName="endLocation"
+            />
+          </div>
+          
+          <!-- Start Date -->
+          <div class="space-y-2">
+            <label class="text-black font-bold text-sm" for="startdate">Start Date</label>
+            <input
+              class="w-full px-4 py-3 rounded-xl bg-gray-100 text-gray-900 focus:ring-2 focus:ring-yellow-400 focus:outline-none transition border-gray-200"
+              type="date"
+              id="startdate"
+              formControlName="startDate"
+            />
+          </div>
+          
+          <!-- End Date -->
+          <div class="space-y-2">
+            <label class="text-black font-bold text-sm" for="enddate">End Date</label>
+            <input
+              class="w-full px-4 py-3 rounded-xl bg-gray-100 text-gray-900 focus:ring-2 focus:ring-yellow-400 focus:outline-none transition border-gray-200"
+              type="date"
+              id="enddate"
+              formControlName="endDate"
+            />
+          </div>
+        </div>
 
-    <div *ngIf="responseMessage" class="text-white mt-5">
-      <p>{{ responseMessage }}</p>
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+          <button
+            type="submit"
+            class="px-8 py-3 bg-black text-white rounded-xl font-medium hover:bg-gray-800 transition duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-white"
+          >
+            Search Flights
+          </button>
+          <button
+            type="button"
+            (click)="navigateToRecommandation()"
+            class="px-8 py-3 bg-gray-900 text-white rounded-xl font-medium hover:bg-gray-800 transition duration-200 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white border-2 border-gray-900"
+          >
+            Recommend Flight
+          </button>
+        </div>
+      </form>
+
+      <!-- Response Message -->
+      <div *ngIf="responseMessage" class="mt-6 text-gray-600 text-center">
+        <p>{{ responseMessage }}</p>
+      </div>
     </div>
 
-    <div *ngIf="flights.length" class="container mx-auto mt-5">
-      <h3 class="text-center text-white text-2xl font-semibold mb-5">Available Flights</h3>
+    <!-- Flight Results -->
+    <div *ngIf="flights.length" class="mt-12">
+      <h3 class="text-center text-gray-100 text-3xl font-bold mb-8">Available Flights</h3>
       
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div *ngFor="let flight of flights" class="bg-white shadow-lg rounded-lg p-5">
-          <h5 class="text-xl font-bold text-blue-600">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div *ngFor="let flight of flights" class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition duration-300 border border-gray-700">
+          <div class="p-6">
+            <div class="flex items-center justify-between mb-4">
+              <h5 class="text-xl font-bold text-blue-400 flex items-center gap-2">
+                <span class="text-2xl">✈</span>
+                {{ flight.departureCity }} → {{ flight.arrivalCity }}
+              </h5>
+              <span class="text-sm text-white">ID: {{ flight.flightId }}</span>
+            </div>
             
-            ✈ {{ flight.departureCity }} → {{ flight.arrivalCity }}
-             FlightID : {{ flight.flightId }}
-          </h5>
-          <h6 class="text-gray-500">
-            {{ flight.departureTime | date:'medium' }} - {{ flight.arrivalTime | date:'medium' }}
-          </h6>
-          <hr class="my-3">
-    
-          <p class="text-gray-700"><strong>🛫 Airline:</strong> {{ flight.airline }}</p>
-          <p class="text-green-600 font-semibold"><strong>💰 Price:</strong> ${{ flight.price }}</p>
-    
+            <div class="space-y-4">
+              <div class="text-black">
+                <div class="flex items-center gap-2">
+                  <span class="text-sm font-medium">Departure:</span>
+                  <span>{{ flight.departureTime | date:'medium' }}</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="text-sm font-medium">Arrival:</span>
+                  <span>{{ flight.arrivalTime | date:'medium' }}</span>
+                </div>
+              </div>
 
-          <button 
-          class="bg-blue-500 text-white px-4 py-2 rounded-md w-full mt-4 hover:bg-blue-600"
-          (click)="navigateToReservation(flight.flightId)">
-          Book Flight
-        </button>
-        
+              <div class="flex justify-between items-center pt-4 border-t border-gray-700">
+                <div class="flex items-center gap-2">
+                  <span class="text-black">🛫</span>
+                  <span class="text-black">{{ flight.airline }}</span>
+                </div>
+                <div class="text-lg font-bold text-green-400">${{ flight.price }}</div>
+              </div>
+
+              <button 
+                (click)="navigateToReservation(flight.flightId)"
+                class="w-full mt-4 px-6 py-3 bg-blue-500 text-white rounded-xl font-medium hover:bg-blue-600 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 flex items-center justify-center gap-2"
+              >
+                Book Flight
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

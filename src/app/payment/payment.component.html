@@ -1,1 +1,63 @@
-<p>payment works!</p>
+<div class="h-full container mx-auto flex justify-center items-start">
+    <div class="px-10 py-10 bg-gray-800 rounded-2xl shadow-2xl w-full max-w-lg">
+      <h2 class="text-white text-2xl font-semibold text-center mb-5">Payment Information</h2>
+      
+      <form (ngSubmit)="onSubmit()" class="space-y-4">
+        <div id="price-display" class="flex justify-between items-center">
+          <label class="text-white text-sm font-medium" for="source">Price</label>
+          <p class="text-white">$348.09</p>
+        </div>
+  
+        <div class="flex flex-col">
+          <label class="text-white text-sm font-medium mb-1" for="cardHolderName">Card Holder Name</label>
+          <input
+            class="px-4 py-3 rounded-xl bg-gray-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-yellow-400 focus:outline-none transition"
+            type="text"
+            id="cardHolderName"
+            placeholder="Enter card holder name"
+            [(ngModel)]="paymentRequest.cardHolderName"
+            name="cardHolderName"
+            required
+          />
+        </div>
+        
+        <div class="flex flex-col">
+          <label class="text-white text-sm font-medium mb-1" for="source">Card Number</label>
+          <input
+            class="px-4 py-3 rounded-xl bg-gray-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-yellow-400 focus:outline-none transition"
+            type="text"
+            id="source"
+            placeholder="Enter Card Number"
+            [(ngModel)]="paymentRequest.source"
+            name="source"
+            required
+          />
+        </div>
+  
+        <div class="flex flex-col">
+          <label class="text-white text-sm font-medium mb-1" for="currency">Currency</label>
+          <input
+            class="px-4 py-3 rounded-xl bg-gray-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-yellow-400 focus:outline-none transition"
+            type="text"
+            id="currency"
+            placeholder="Enter currency code (e.g., usd)"
+            [(ngModel)]="paymentRequest.currency"
+            name="currency"
+            required
+          />
+        </div>
+        <p>____</p>
+  
+        <a 
+          href="http://localhost:4200/meteo"
+          class="bg-yellow-400 text-gray-800 px-6 py-3 rounded-xl font-medium hover:bg-yellow-500 transition duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 focus:ring-offset-gray-800 text-center w-full"
+        >  Confirm Reservation
+    </a>
+  
+        <div *ngIf="responseMessage" class="text-white mt-5">
+          <p>{{ responseMessage }}</p>
+        </div>
+      </form>
+    </div>
+  </div>
+  

@@ -23,7 +23,7 @@ export class MeteoComponent {
       return;
     }
 
-    const apiUrl = `http://localhost:8081/api/meteo/${this.city}`;
+    const apiUrl = `http://localhost:8083/api/meteo/${this.city}`;
     
     this.http.get(apiUrl).subscribe({
       next: (response: any) => {

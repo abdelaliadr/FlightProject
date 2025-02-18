@@ -37,7 +37,9 @@ export class HomeComponent {
   navigateToReservation(flightId: string) {
     this.router.navigate(['/reserve', flightId]);  // Navigate to the reservation page with flightId
   }
-
+  navigateToRecommandation() {
+    this.router.navigate(['/recommend']);  // Navigate to the reservation page with flightId
+  }
   onSubmit() {
     const formValues = this.searchForm.value;
     this.flightService.filterFlights(

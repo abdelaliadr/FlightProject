@@ -23,4 +23,7 @@ export class FlightService {
     };
 
     return this.http.get<Flight[]>(`${this.baseUrl}/Filter`, { params });
+}
+getFlightById(flightId: string): Observable<any> {
+  return this.http.get<any>(`${this.baseUrl}/${flightId}`);
 }}

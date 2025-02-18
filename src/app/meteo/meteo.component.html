@@ -1,13 +1,20 @@
-<div class="meteo-container">
-    <h2>Weather Forecast</h2>
-    <input type="text" [(ngModel)]="city" placeholder="Enter city name">
-    <button (click)="fetchWeather()">Get Weather</button>
-
-    <div *ngIf="weather" class="weather-info">
-        <h3>{{ city }}</h3>
-        <p><strong>Temperature:</strong> {{ weather.temperature }}°C</p>
-        <p><strong>Condition:</strong> {{ weather.description }}</p>
-        <p><strong>Time:</strong> {{ weather.date | date:'medium' }}</p>
-        <img *ngIf="weatherIcon" [src]="weatherIcon" alt="Weather icon">  <!-- ✅ Fixed -->
+<div class="flex flex-col items-center justify-center py-8 bg-gray-800 rounded-lg shadow-md">
+    <h2 class="text-2xl font-bold text-white mb-4">Weather Forecast</h2>
+    <div class="flex items-center mb-4">
+      <input type="text" [(ngModel)]="city" placeholder="Enter city name" class="px-4 py-2 bg-gray-700 text-white rounded-l-md focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent" />
+      <button (click)="fetchWeather()" class="px-4 py-2 bg-yellow-400 text-gray-800 font-semibold rounded-r-md hover:bg-yellow-500 transition-colors duration-200">
+        Get Weather
+      </button>
     </div>
-</div>
+  
+    <div *ngIf="weather" class="bg-gray-700 p-8 rounded-lg shadow-md text-white text-center w-full max-w-md">
+      <h3 class="text-2xl font-bold mb-4">{{ city }}</h3>
+      <p class="mb-7 text-white"><strong>Temperature:</strong> {{ weather.temperature }}°C</p>
+      <p class="mb-7 text-white"><strong>Condition:</strong> {{ weather.description }}</p>
+      <p class="mb-7 text-white"><strong>Time:</strong> {{ weather.date | date:'medium' }}</p>
+      <div class="flex items-center justify-center">
+        <img *ngIf="weatherIcon" [src]="weatherIcon" alt="Weather icon" class="w-24 h-24 mb-4" />
+        <p>ccc</p>
+      </div>
+    </div>
+  </div>
