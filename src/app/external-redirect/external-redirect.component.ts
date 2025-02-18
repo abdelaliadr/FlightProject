@@ -6,6 +6,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ExternalRedirectComponent implements OnInit {
   ngOnInit() {
-    window.location.href = 'http://desktop-qrdpnd5/Reports/powerbi/cause_of_deaths%20dashboard';
+    window.location.href = 'http://desktop-qrdpnd5/Reports/powerbi/cause_of_deaths%20dashboard?rs:Embed=true';
   }
 }
