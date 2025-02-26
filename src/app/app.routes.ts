@@ -10,12 +10,8 @@ import { BookingComponent } from './booking/booking.component';
 import { Home1Component } from './home1/home1.component';
 import { MeteoComponent } from './meteo/meteo.component';
 import { ReservationComponent } from './reservation/reservation.component';
-<<<<<<< HEAD
 import { PaymentComponent } from './payment/payment.component';
 import { RecommandationComponent } from './recommandation/recommandation.component';
-=======
-import { ExternalRedirectComponent } from './external-redirect/external-redirect.component';
->>>>>>> 80541cb54fa42f589af5a6ab0dcee50f8d2a84ce
 
 export const routes: Routes = [
   {
@@ -51,22 +47,11 @@ export const routes: Routes = [
     component: BookingComponent,
   },
   { path: 'reserve/:flightId',
-<<<<<<< HEAD
     component: ReservationComponent },
     { path: 'payment/:reservationId',
       component: PaymentComponent },
       { path: 'recommend',
         component: RecommandationComponent },
-=======
-    component: ReservationComponent 
-  },
-  { path: 'diseases', 
-    redirectTo: 'externalRedirect', pathMatch: 'full' 
-  },
-  { path: 'externalRedirect', 
-    component: ExternalRedirectComponent 
-  },
->>>>>>> 80541cb54fa42f589af5a6ab0dcee50f8d2a84ce
 ];
 
 @NgModule({
